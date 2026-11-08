@@ -12,7 +12,14 @@ export function createSandstoneTexture(): THREE.CanvasTexture {
   canvas.width = 512;
   canvas.height = 512;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return new THREE.CanvasTexture(canvas);
+  if (!ctx) {
+    // Fallback: return an empty texture to avoid crash
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    return tex;
+  }
 
   // Warm sandstone base
   const grad = ctx.createLinearGradient(0, 0, 512, 512);
@@ -81,7 +88,13 @@ export function createGoldEngravingTexture(): THREE.CanvasTexture {
   canvas.width = 512;
   canvas.height = 512;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return new THREE.CanvasTexture(canvas);
+  if (!ctx) {
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    return tex;
+  }
 
   // Royal gold metallic gradient
   const grad = ctx.createLinearGradient(0, 0, 512, 512);
@@ -146,7 +159,11 @@ export function createPeacockFeatherTexture(): THREE.CanvasTexture {
   canvas.width = 256;
   canvas.height = 512;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return new THREE.CanvasTexture(canvas);
+  if (!ctx) {
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
 
   ctx.clearRect(0, 0, 256, 512);
 
@@ -216,7 +233,11 @@ export function createTerracottaTexture(): THREE.CanvasTexture {
   canvas.width = 256;
   canvas.height = 256;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return new THREE.CanvasTexture(canvas);
+  if (!ctx) {
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
 
   // Earthy terracotta gradient
   const grad = ctx.createLinearGradient(0, 0, 256, 256);
@@ -262,7 +283,11 @@ export function createRangoliTexture(): THREE.CanvasTexture {
   canvas.width = 1024;
   canvas.height = 1024;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return new THREE.CanvasTexture(canvas);
+  if (!ctx) {
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
 
   ctx.clearRect(0, 0, 1024, 1024);
 
@@ -323,7 +348,9 @@ export function createFlameParticleTexture(): THREE.CanvasTexture {
   canvas.width = 128;
   canvas.height = 128;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return new THREE.CanvasTexture(canvas);
+  if (!ctx) {
+    return new THREE.CanvasTexture(canvas);
+  }
 
   ctx.clearRect(0, 0, 128, 128);
 
@@ -349,7 +376,9 @@ export function createSanskritMantraTexture(text: string = 'जय श्री 
   canvas.width = 512;
   canvas.height = 128;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return new THREE.CanvasTexture(canvas);
+  if (!ctx) {
+    return new THREE.CanvasTexture(canvas);
+  }
 
   ctx.clearRect(0, 0, 512, 128);
 

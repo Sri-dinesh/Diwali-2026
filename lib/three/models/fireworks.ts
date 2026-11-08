@@ -174,23 +174,24 @@ export function createFireworksSystem(): FireworksSystem {
       }
     }
 
-    // Update GPU buffers
-    for (let i = 0; i < maxParticles; i++) {
-      if (i < particles.length) {
-        const p = particles[i];
-        positions[i * 3] = p.pos.x;
-        positions[i * 3 + 1] = p.pos.y;
-        positions[i * 3 + 2] = p.pos.z;
+    // Update GPU buffers — only write active particles, skip the dead tail
+    const count = particles.length;
+    for (let i = 0; i < count; i++) {
+      const p = particles[i];
+      positions[i * 3] = p.pos.x;
+      positions[i * 3 + 1] = p.pos.y;
+      positions[i * 3 + 2] = p.pos.z;
 
-        colors[i * 3] = p.color.r * p.alpha;
-        colors[i * 3 + 1] = p.color.g * p.alpha;
-        colors[i * 3 + 2] = p.color.b * p.alpha;
+      colors[i * 3] = p.color.r * p.alpha;
+      colors[i * 3 + 1] = p.color.g * p.alpha;
+      colors[i * 3 + 2] = p.color.b * p.alpha;
 
-        sizes[i] = p.size * p.alpha;
-      } else {
-        positions[i * 3 + 1] = -9999;
-        sizes[i] = 0;
-      }
+      sizes[i] = p.size * p.alpha;
+    }
+    // Mark the unused tail as dead with a single sentinel
+    if (count < maxParticles) {
+      positions[count * 3 + 1] = -9999;
+      sizes[count] = 0;
     }
 
     geometry.attributes.position.needsUpdate = true;

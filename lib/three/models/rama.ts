@@ -379,8 +379,19 @@ export function createRama(): RamaCharacter {
   // Set default initial holding pose
   setPose('holding', 1.0);
 
+  // Aim Rama's group toward a target using a cheap yaw-only SLERP.
+  // Three.js Group default forward is +Z, but lookAt() orients -Z toward target.
+  // Ravana sits at -Z relative to Rama, so we slerp from -Z toward the target dir.
+  let _aimQuaternion = new THREE.Quaternion();
+  let _facing = new THREE.Vector3();
+
   const aimAtTarget = (target: THREE.Vector3) => {
-    group.lookAt(target.x, group.position.y, target.z);
+    _facing.copy(target).sub(group.position);
+    _facing.y = 0;
+    if (_facing.lengthSq() < 0.0001) return;
+    _facing.normalize();
+    _aimQuaternion.setFromUnitVectors(new THREE.Vector3(0, 0, -1), _facing);
+    group.quaternion.slerp(_aimQuaternion, 0.12);
   };
 
   const update = (delta: number, time: number) => {

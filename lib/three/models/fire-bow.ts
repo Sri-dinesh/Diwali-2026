@@ -257,6 +257,8 @@ export function createFireBow(): FireBowControls {
   let flightProgress = 0;
   let flightStart = new THREE.Vector3();
   let flightTarget = new THREE.Vector3();
+  let flightTargetLocal = new THREE.Vector3();
+  const _flightPos = new THREE.Vector3();
   let onHitCallback: (() => void) | undefined;
 
   const drawBow = (drawRatio: number) => {
@@ -291,6 +293,10 @@ export function createFireBow(): FireBowControls {
     particleMat.opacity = 0.9;
     arrowLight.intensity = 5.0;
     mantraSprite.material.opacity = 1.0;
+
+    // Precompute target in local space once — Ravana doesn't move during battle
+    flightTargetLocal.copy(flightTarget);
+    try { group.worldToLocal(flightTargetLocal); } catch { flightTargetLocal.copy(flightTarget); }
   };
 
   const update = (delta: number, time: number) => {
@@ -330,11 +336,16 @@ export function createFireBow(): FireBowControls {
         drawBow(0);
         if (onHitCallback) onHitCallback();
       } else {
-        const currentPos = new THREE.Vector3().lerpVectors(flightStart, flightTarget, flightProgress);
-        currentPos.y += Math.sin(flightProgress * Math.PI) * 1.2;
-        const localPos = group.worldToLocal(currentPos.clone());
-        arrowGroup.position.copy(localPos);
-        arrowGroup.lookAt(group.worldToLocal(flightTarget.clone()));
+        _flightPos.lerpVectors(flightStart, flightTarget, flightProgress);
+        _flightPos.y += Math.sin(flightProgress * Math.PI) * 1.2;
+        try {
+          const localPos = group.worldToLocal(_flightPos);
+          arrowGroup.position.copy(localPos);
+        } catch {
+          // Fallback: place arrow along the direct line in world space
+          arrowGroup.position.copy(_flightPos);
+        }
+        arrowGroup.lookAt(flightTargetLocal);
       }
     }
   };

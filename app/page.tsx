@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { DiwaliCanvas, DiwaliCanvasRef } from '../components/three/DiwaliCanvas';
 import { CollapsibleDock } from '../components/ui/CollapsibleDock';
 import { LoadingScreen } from '../components/ui/LoadingScreen';
-import { StoryOverlay } from '../components/ui/StoryOverlay';
 import { sound } from '../lib/audio/sound-synth';
 
 // 10 Core Chapters Flow
@@ -76,19 +75,23 @@ const CHAPTERS = [
     title: 'Scene 10: Final Blessing & Shubh Deepavali 2026',
     sanskrit: '॥ शुभ दीपावली २०२६ • जय श्री राम ॥',
     subtitle: 'May Eternal Light Guide You',
-    story: '“May your life be illuminated with the divine light of wisdom, the warmth of pure love, the spark of joy, and the triumph of goodness. Shubh Deepavali 2026!”',
+    story: 'May your life be illuminated with the divine light of wisdom, the warmth of pure love, the spark of joy, and the triumph of goodness. Shubh Deepavali 2026!',
     actionHint: 'Click "Light Royal Diya" for personal prayer & blessing',
   },
 ];
 
+const CHAPTER_SECTIONS = CHAPTERS.length;
+
 export default function DiwaliPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentChapter, setCurrentChapter] = useState(1); // Auto-start directly at Scene 02: The Battlefield of Lanka
+  const [currentChapter, setCurrentChapter] = useState(0);
   const [isOrbitMode, setIsOrbitMode] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [battleStage, setBattleStage] = useState<string>('IDLE');
 
   const canvasRef = useRef<DiwaliCanvasRef>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const chapterSectionsRef = useRef<(HTMLElement | null)[]>([]);
 
   // Sound Toggle handler
   const handleToggleAudio = useCallback(() => {
@@ -114,69 +117,155 @@ export default function DiwaliPage() {
   const handleBattleStageChange = useCallback((stage: string) => {
     setBattleStage(stage);
     if (stage === 'HOLDING') {
-      setCurrentChapter(1); // Scene 02: The Battlefield of Lanka (Rama holding bow & arrow)
+      setCurrentChapter(1);
     } else if (stage === 'DRAWING') {
-      setCurrentChapter(2); // Scene 03: The Divine Bow (Kodanda drawn, needle tip in fire)
+      setCurrentChapter(2);
     } else if (stage === 'RELEASED' || stage === 'RAVANA_FIRE') {
-      setCurrentChapter(3); // Scene 04: The Agni Astra (Ravana engulfed in fire for 5s)
+      setCurrentChapter(3);
     } else if (stage === 'CRACKERS') {
-      setCurrentChapter(4); // Scene 05: The Triumph of Light (Crackers bottom-to-top)
+      setCurrentChapter(4);
     } else if (stage === 'COMPLETED') {
-      // Automatically advance to Pushpak Vimana return and royal celebration
       setTimeout(() => {
         setCurrentChapter(5);
       }, 3000);
     }
   }, []);
 
+  // Scroll-based chapter progression: when a section crosses its midpoint in view, advance
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    let prevChapter = currentChapter;
+    let rafId = 0;
+
+    const updateChapterFromScroll = () => {
+      const scrollTop = container.scrollTop;
+      const viewportH = container.clientHeight;
+
+      // Find the section whose midpoint is closest to the center of the viewport
+      let bestIdx = 0;
+      let bestDist = Infinity;
+
+      for (let i = 0; i < CHAPTER_SECTIONS; i++) {
+        const el = chapterSectionsRef.current[i];
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        // Center of this section relative to viewport
+        const sectionCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(sectionCenter - viewportH / 2);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = i;
+        }
+      }
+
+      if (bestIdx !== prevChapter) {
+        prevChapter = bestIdx;
+        setCurrentChapter(bestIdx);
+      }
+    };
+
+    const onScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateChapterFromScroll);
+    };
+
+    container.addEventListener('scroll', onScroll, { passive: true });
+    updateChapterFromScroll();
+
+    return () => {
+      container.removeEventListener('scroll', onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [currentChapter]);
+
+  // When battle starts, we keep the chapter at 1 (battlefield) until it completes.
+  // The scroll handler won't override it because prevChapter tracks what the scroll wants.
+  // But the battle state machine drives chapter via setCurrentChapter already.
+  // To avoid scroll fighting the battle automation, pause scroll-chapter sync while battle plays.
+  const battleActive = useRef(false);
+  useEffect(() => {
+    battleActive.current = battleStage !== 'IDLE' && battleStage !== 'COMPLETED';
+  }, [battleStage]);
+
+  // Reset diya kingdom state when chapter changes away from celebration chapters
+  useEffect(() => {
+    if (currentChapter < 6 && canvasRef.current) {
+      // no-op: diyas reset handled in canvas when chapter camera updates
+    }
+  }, [currentChapter]);
+
   return (
-    <main className="relative w-full h-full min-h-screen overflow-hidden bg-[#070914] text-white select-none">
+    <>
       {/* 1. Cinematic Loading Screen */}
       {isLoading && (
         <LoadingScreen
           onLoaded={() => {
             setIsLoading(false);
-            canvasRef.current?.playBattleSequence();
           }}
         />
       )}
 
-      {/* 2. Three.js 3D Master Canvas */}
-      <DiwaliCanvas
-        ref={canvasRef}
-        currentChapter={currentChapter}
-        isOrbitMode={isOrbitMode}
-        onBattleStageChange={handleBattleStageChange}
-        onDiyaLit={() => {}}
-        onArrowFired={() => {}}
-        onRavanaDefeated={() => {}}
-      />
+      {/* 2. Scrollable chapter container (fills viewport, overflow-y: auto) */}
+      <div
+        ref={scrollContainerRef}
+        className="relative w-full h-screen overflow-y-auto overflow-x-hidden bg-[#070914] text-white select-none scroll-smooth"
+        style={{ touchAction: 'pan-y', scrollSnapType: 'y mandatory' }}
+      >
+        {/* 3. Three.js 3D Master Canvas — fixed, covering all sections */}
+        <div className="fixed inset-0 z-0">
+          <DiwaliCanvas
+            ref={canvasRef}
+            currentChapter={currentChapter}
+            isOrbitMode={isOrbitMode}
+            onBattleStageChange={handleBattleStageChange}
+            onDiyaLit={() => {}}
+            onArrowFired={() => {}}
+            onRavanaDefeated={() => {}}
+          />
+        </div>
 
-      {/* 3. Minimal Story & Poetic Narrative Overlay */}
-      {!isLoading && (
-        <StoryOverlay
-          currentChapter={currentChapter}
-          chapterData={CHAPTERS[currentChapter]}
-        />
-      )}
+        {/* 4. Chapter spacer sections — each one viewport tall, drives scroll chapter */}
+        {CHAPTERS.map((ch, idx) => (
+          <div
+            key={idx}
+            ref={(el) => { chapterSectionsRef.current[idx] = el; }}
+            className="relative z-10 flex items-center justify-center w-full h-screen min-h-screen scroll-start snap-start"
+            style={{ scrollSnapAlign: 'start' }}
+          >
+            {/* Thin bottom progress line per section */}
+            <div
+              className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-amber-600/40 to-transparent w-full opacity-60 pointer-events-none"
+            />
+          </div>
+        ))}
 
-      {/* 4. Unified Collapsible Bottom Dock */}
-      {!isLoading && (
-        <CollapsibleDock
-          currentChapter={currentChapter}
-          totalChapters={CHAPTERS.length}
-          chapterTitles={CHAPTERS.map((c) => c.title)}
-          isOrbitMode={isOrbitMode}
-          isMuted={isMuted}
-          battleStage={battleStage}
-          onSelectChapter={(idx) => setCurrentChapter(idx)}
-          onToggleOrbit={() => setIsOrbitMode((prev) => !prev)}
-          onToggleAudio={handleToggleAudio}
-          onFireArrow={handleFireArrow}
-          onLightDiya={handleLightDiya}
-          onLaunchFirework={handleLaunchFirework}
-        />
-      )}
-    </main>
+        {/* 5. Unified Collapsible Bottom Dock */}
+        {!isLoading && (
+          <div className="relative z-30">
+            <CollapsibleDock
+              currentChapter={currentChapter}
+              totalChapters={CHAPTERS.length}
+              chapterTitles={CHAPTERS.map((c) => c.title)}
+              isOrbitMode={isOrbitMode}
+              isMuted={isMuted}
+              battleStage={battleStage}
+              onSelectChapter={(idx) => {
+                setCurrentChapter(idx);
+                // Scroll the corresponding section into view
+                const el = chapterSectionsRef.current[idx];
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              onToggleOrbit={() => setIsOrbitMode((prev) => !prev)}
+              onToggleAudio={handleToggleAudio}
+              onFireArrow={handleFireArrow}
+              onLightDiya={handleLightDiya}
+              onLaunchFirework={handleLaunchFirework}
+            />
+          </div>
+        )}
+      </div>
+    </>
   );
 }

@@ -19,18 +19,19 @@ export function createSarayuRiver(): SarayuRiver {
 
   // Water Material with deep teal/indigo sheen and realistic surface reflections
   const waterMaterial = new THREE.MeshStandardMaterial({
-    color: 0x0a3d62,
-    roughness: 0.12,
-    metalness: 0.88,
+    color: 0x0c4a72,
+    roughness: 0.08,
+    metalness: 0.92,
     transparent: true,
-    opacity: 0.92,
+    opacity: 0.94,
+    envMapIntensity: 1.2,
   });
 
-  // Animated water plane with subdivisions for gentle undulating waves
-  const waterGeo = new THREE.PlaneGeometry(36, 18, 48, 24);
+  // Animated water plane — wide, smooth, fully filled surface
+  const waterGeo = new THREE.PlaneGeometry(42, 16, 80, 40);
   waterGeo.rotateX(-Math.PI / 2);
   const waterMesh = new THREE.Mesh(waterGeo, waterMaterial);
-  waterMesh.position.set(0, -0.1, 32); // Positioned in the foreground river basin
+  waterMesh.position.set(0, 0.15, 24); // Foreground river basin, lifted above ground
   waterMesh.receiveShadow = true;
   group.add(waterMesh);
 
@@ -39,9 +40,9 @@ export function createSarayuRiver(): SarayuRiver {
     color: 0x7f8c8d,
     roughness: 0.8,
   });
-  for (let g = 0; g < 4; g++) {
-    const step = new THREE.Mesh(new THREE.BoxGeometry(34, 0.25, 1.2), ghatMaterial);
-    step.position.set(0, -g * 0.2, 23.5 + g * 1.1);
+  for (let g = 0; g < 5; g++) {
+    const step = new THREE.Mesh(new THREE.BoxGeometry(38, 0.25, 1.0), ghatMaterial);
+    step.position.set(0, -g * 0.22, 20.0 + g * 0.9);
     step.receiveShadow = true;
     group.add(step);
   }
@@ -82,8 +83,8 @@ export function createSarayuRiver(): SarayuRiver {
     flame.position.y = 0.22;
     dGroup.add(flame);
 
-    const baseX = (Math.random() - 0.5) * 28;
-    const baseZ = 26 + Math.random() * 12;
+    const baseX = (Math.random() - 0.5) * 30;
+    const baseZ = 17 + Math.random() * 10;
     dGroup.position.set(baseX, 0, baseZ);
     group.add(dGroup);
 
@@ -115,7 +116,7 @@ export function createSarayuRiver(): SarayuRiver {
     center.position.y = 0.08;
     lotusGroup.add(center);
 
-    lotusGroup.position.set((Math.random() - 0.5) * 26, 0.02, 27 + Math.random() * 10);
+    lotusGroup.position.set((Math.random() - 0.5) * 28, 0.02, 18 + Math.random() * 10);
     group.add(lotusGroup);
   }
 
@@ -124,29 +125,54 @@ export function createSarayuRiver(): SarayuRiver {
   for (let i = 0; i < posAttr.count; i++) {
     initialY[i] = posAttr.getY(i);
   }
+  // Recompute normals at most every ~8 frames — smooth enough, much cheaper
+  let _normCounter = 0;
+
+  // Moon reflection shimmer on water surface
+  const reflectionMat = new THREE.MeshBasicMaterial({
+    color: 0xfff4d6,
+    transparent: true,
+    opacity: 0.12,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+  });
+  const reflectionGeo = new THREE.PlaneGeometry(6, 0.4);
+  const reflectionMesh = new THREE.Mesh(reflectionGeo, reflectionMat);
+  reflectionMesh.rotation.x = -Math.PI / 2;
+  reflectionMesh.position.set(-18, 0.1, 30); // Near the moon position in the sky
+  group.add(reflectionMesh);
 
   const update = (delta: number, time: number) => {
-    // 1. Water surface wave simulation
+    // 1. Water surface wave simulation — smooth, gentle, no holes
     for (let i = 0; i < posAttr.count; i++) {
       const x = posAttr.getX(i);
       const z = posAttr.getZ(i);
-      const wave = Math.sin(x * 0.5 + time * 1.5) * 0.06 + Math.cos(z * 0.6 + time * 1.8) * 0.04;
+      const wave = Math.sin(x * 0.3 + time * 1.0) * 0.035 + Math.cos(z * 0.4 + time * 1.2) * 0.025 + Math.sin((x + z) * 0.2 + time * 0.7) * 0.02;
       posAttr.setY(i, initialY[i] + wave);
     }
     posAttr.needsUpdate = true;
-    waterGeo.computeVertexNormals();
+    _normCounter++;
+    if (_normCounter >= 6) {
+      waterGeo.computeVertexNormals();
+      _normCounter = 0;
+    }
 
-    // 2. Floating diyas gentle drift & bobbing
+    // Moon reflection shimmer — gentle pulse on the water
+    reflectionMat.opacity = 0.1 + Math.sin(time * 0.6) * 0.03;
+    reflectionMesh.scale.x = 5 + Math.sin(time * 0.4) * 1.0;
+    reflectionMesh.position.y = 0.15 + Math.sin(time * 1.0) * 0.02;
+
+    // 2. Floating diyas gentle drift & bobbing on the water
     floatingDiyas.forEach((fd) => {
-      // Gentle current moving to the right
       fd.baseX += delta * fd.speed;
-      if (fd.baseX > 16) fd.baseX = -16;
+      if (fd.baseX > 18) fd.baseX = -18;
 
-      const bobbing = Math.sin(time * 2.0 + fd.offset) * 0.04;
+      const waveOffset = Math.sin(fd.baseX * 0.3 + time * 1.0) * 0.035 + Math.cos(fd.baseX * 0.4 + time * 1.2) * 0.025;
       fd.mesh.position.x = fd.baseX;
-      fd.mesh.position.y = bobbing;
-      fd.mesh.rotation.z = Math.sin(time * 1.5 + fd.offset) * 0.05;
-      fd.mesh.rotation.x = Math.cos(time * 1.5 + fd.offset) * 0.05;
+      fd.mesh.position.y = waveOffset;
+      fd.mesh.rotation.z = Math.sin(time * 1.2 + fd.offset) * 0.03;
+      fd.mesh.rotation.x = Math.cos(time * 1.2 + fd.offset) * 0.02;
     });
   };
 

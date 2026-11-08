@@ -182,13 +182,13 @@ export const DiwaliCanvas = React.forwardRef<DiwaliCanvasRef, DiwaliCanvasProps>
     s.rama.setPose('holding', 1.0);
     s.rama.fireBow.drawBow(0);
 
-    // Arrive directly near Lord Rama (heroic front-quarter view)
-    s.targetCamPos.set(-1.4, 1.85, -24.2);
-    s.targetLookAt.set(0.0, 1.75, -22.0);
-    s.currentLookAt.set(0.0, 1.75, -22.0);
+    // Arrive zoomed out so the full battle scene (Rama, Ravana, battlefield) is visible
+    s.targetCamPos.set(-6.0, 4.5, -38.0);
+    s.targetLookAt.set(0.0, 2.0, -25.0);
+    s.currentLookAt.set(0.0, 2.0, -25.0);
     if (s.camera) {
-      s.camera.position.set(-1.4, 1.85, -24.2);
-      s.camera.lookAt(0.0, 1.75, -22.0);
+      s.camera.position.set(-6.0, 4.5, -38.0);
+      s.camera.lookAt(0.0, 2.0, -25.0);
     }
 
     // Initialize state machine
@@ -486,19 +486,31 @@ export const DiwaliCanvas = React.forwardRef<DiwaliCanvasRef, DiwaliCanvasProps>
       const time = totalElapsedTime;
       stateRef.current.time = time;
 
-      // Update nested models
+      // Guard: if renderer or scene was disposed, stop animating
+      const _renderer = stateRef.current.renderer;
+      const _scene = stateRef.current.scene;
+      const _camera = stateRef.current.camera;
+      if (!_renderer || !_scene || !_camera) {
+        return;
+      }
+
+      // --- CONTINUOUS RAMA VS RAVANA BATTLE STATE MACHINE ---
+      const anim = stateRef.current.battleAnim;
+
+      // Update nested models — skip distant/irrelevant systems during battle to save GPU
+      const battleActive = anim.isPlaying;
       ayodhya.update(delta, time);
+      if (!battleActive) {
+        diyas.update(delta, time);
+        rangoli.update(delta, time);
+        sarayu.update(delta, time);
+      }
       battlefield.update(delta, time);
       rama.update(delta, time);
       ravana.update(delta, time);
       vimana.update(delta, time);
-      diyas.update(delta, time);
-      sarayu.update(delta, time);
-      rangoli.update(delta, time);
       fireworks.update(delta);
 
-      // --- CONTINUOUS RAMA VS RAVANA BATTLE STATE MACHINE ---
-      const anim = stateRef.current.battleAnim;
       if (anim.isPlaying) {
         anim.timer += delta;
 
@@ -511,9 +523,9 @@ export const DiwaliCanvas = React.forwardRef<DiwaliCanvasRef, DiwaliCanvasProps>
           rama.setPose('holding', 1.0);
           rama.aimAtTarget(ravana.group.position);
 
-          // Heroic front 3/4 framing Lord Rama holding bow and arrow
-          stateRef.current.targetCamPos.set(-1.4, 1.85, -24.2);
-          stateRef.current.targetLookAt.set(0.0, 1.75, -22.0);
+          // Zoomed-out view keeping both Rama and Ravana in frame
+          stateRef.current.targetCamPos.set(-6.0, 4.5, -38.0);
+          stateRef.current.targetLookAt.set(0.0, 2.0, -25.0);
         }
         // Stage 2: Ready to shoot / Bow-pulling pose with arrow needle point in fire (1.0s to 2.2s)
         else if (anim.timer >= 1.0 && anim.timer < 2.2) {
@@ -530,9 +542,9 @@ export const DiwaliCanvas = React.forwardRef<DiwaliCanvasRef, DiwaliCanvasProps>
             sound.playBowDraw();
           }
 
-          // Camera tracks dynamically onto drawn bow and flaming needle tip
-          stateRef.current.targetCamPos.set(-1.1, 1.85, -23.6);
-          stateRef.current.targetLookAt.set(-0.05, 1.75, -22.0);
+          // Zoomed-out view of Rama drawing the bow, full scene visible
+          stateRef.current.targetCamPos.set(-5.0, 4.2, -37.0);
+          stateRef.current.targetLookAt.set(0.0, 2.0, -25.0);
         }
         // Stage 3: Arrow releases in slow-motion flight (2.2s to 3.0s)
         else if (anim.timer >= 2.2 && anim.timer < 3.0) {
@@ -549,9 +561,9 @@ export const DiwaliCanvas = React.forwardRef<DiwaliCanvasRef, DiwaliCanvasProps>
             rama.fireBow.fireArrow(new THREE.Vector3(0, 2.3, -28));
           }
 
-          // Dynamic pan tracking the fire arrow flying towards Ravana
-          stateRef.current.targetCamPos.set(2.2, 2.6, -24.2);
-          stateRef.current.targetLookAt.set(0.0, 2.0, -27.0);
+          // Zoomed-out side view tracking the arrow, full scene visible
+          stateRef.current.targetCamPos.set(4.0, 4.0, -36.0);
+          stateRef.current.targetLookAt.set(0.0, 2.2, -26.0);
         }
         // Stage 4: Arrow catches fire to Lord Ravana -> Ravana is in fire for 5 SECONDS! (3.0s to 8.0s)
         else if (anim.timer >= 3.0 && anim.timer < 8.0) {
@@ -569,9 +581,9 @@ export const DiwaliCanvas = React.forwardRef<DiwaliCanvasRef, DiwaliCanvasProps>
             if (onArrowFired) onArrowFired();
           }
 
-          // Dramatic camera angle witnessing Ravana engulfed in blazing sacred fire
-          stateRef.current.targetCamPos.set(2.2, 2.4, -25.2);
-          stateRef.current.targetLookAt.set(0.0, 2.1, -28.0);
+          // Zoomed-out view of Ravana on fire, full scene visible
+          stateRef.current.targetCamPos.set(4.0, 4.0, -37.0);
+          stateRef.current.targetLookAt.set(0.0, 2.2, -26.0);
         }
         // Stage 5: After 5 seconds of fire, Ravana dissolves and BOTTOM TO TOP CRACKERS ARE BLOWN! (8.0s to 13.5s)
         else if (anim.timer >= 8.0 && anim.timer < 13.5) {
@@ -588,9 +600,9 @@ export const DiwaliCanvas = React.forwardRef<DiwaliCanvasRef, DiwaliCanvasProps>
             if (onRavanaDefeated) onRavanaDefeated();
           }
 
-          // Elevated celebration camera angle witnessing crackers blasting from bottom to top
-          stateRef.current.targetCamPos.set(0.0, 3.5, -19.0);
-          stateRef.current.targetLookAt.set(0.0, 8.0, -28.0);
+          // Zoomed-out elevated view of crackers, full scene visible
+          stateRef.current.targetCamPos.set(0.0, 6.0, -32.0);
+          stateRef.current.targetLookAt.set(0.0, 6.0, -26.0);
         }
         // Animation sequence finishes, transitions smoothly
         else if (anim.timer >= 13.5) {
@@ -608,31 +620,36 @@ export const DiwaliCanvas = React.forwardRef<DiwaliCanvasRef, DiwaliCanvasProps>
 
       // Smooth Camera Damping with instant cut for large scene jumps
       if (!stateRef.current.isOrbitMode) {
-        if (camera.position.distanceTo(stateRef.current.targetCamPos) > 12) {
+        // Use squared distance to avoid a sqrt every frame
+        const dx = camera.position.x - stateRef.current.targetCamPos.x;
+        const dy = camera.position.y - stateRef.current.targetCamPos.y;
+        const dz = camera.position.z - stateRef.current.targetCamPos.z;
+        const distSq = dx * dx + dy * dy + dz * dz;
+        if (distSq > 144) { // 12^2
           camera.position.copy(stateRef.current.targetCamPos);
           stateRef.current.currentLookAt.copy(stateRef.current.targetLookAt);
           camera.lookAt(stateRef.current.currentLookAt);
         } else {
-          camera.position.x = THREE.MathUtils.damp(camera.position.x, stateRef.current.targetCamPos.x, 3.5, delta);
-          camera.position.y = THREE.MathUtils.damp(camera.position.y, stateRef.current.targetCamPos.y, 3.5, delta);
-          camera.position.z = THREE.MathUtils.damp(camera.position.z, stateRef.current.targetCamPos.z, 3.5, delta);
+          camera.position.x = THREE.MathUtils.damp(camera.position.x, stateRef.current.targetCamPos.x, 2.5, delta);
+          camera.position.y = THREE.MathUtils.damp(camera.position.y, stateRef.current.targetCamPos.y, 2.5, delta);
+          camera.position.z = THREE.MathUtils.damp(camera.position.z, stateRef.current.targetCamPos.z, 2.5, delta);
 
           stateRef.current.currentLookAt.x = THREE.MathUtils.damp(
             stateRef.current.currentLookAt.x,
             stateRef.current.targetLookAt.x,
-            4.0,
+            3.0,
             delta
           );
           stateRef.current.currentLookAt.y = THREE.MathUtils.damp(
             stateRef.current.currentLookAt.y,
             stateRef.current.targetLookAt.y,
-            4.0,
+            3.0,
             delta
           );
           stateRef.current.currentLookAt.z = THREE.MathUtils.damp(
             stateRef.current.currentLookAt.z,
             stateRef.current.targetLookAt.z,
-            4.0,
+            3.0,
             delta
           );
 
@@ -647,22 +664,38 @@ export const DiwaliCanvas = React.forwardRef<DiwaliCanvasRef, DiwaliCanvasProps>
         fireworks.launchFirework();
       }
 
-      renderer.render(scene, camera);
+      try {
+        renderer.render(scene, camera);
+      } catch {
+        // Context lost or renderer error — skip this frame, keep looping
+      }
 
       if (isSoftwareGl) {
-        const gl = renderer.getContext() as WebGL2RenderingContext;
-        const sync = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0);
-        gl.flush();
-        const poll = () => {
-          const state = sync && gl.getSyncParameter(sync, gl.SYNC_STATUS);
-          if (state === gl.UNSIGNALED) {
-            window.setTimeout(poll, 5);
-          } else {
-            if (sync) gl.deleteSync(sync);
+        try {
+          const gl = renderer?.getContext() as WebGL2RenderingContext | null;
+          if (!gl) {
             animationFrameId = window.setTimeout(animate, 60);
+          } else {
+            const sync = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0);
+            gl.flush();
+            const poll = () => {
+              try {
+                const st = sync && gl.getSyncParameter(sync, gl.SYNC_STATUS);
+                if (st === gl.UNSIGNALED) {
+                  window.setTimeout(poll, 5);
+                } else {
+                  if (sync) gl.deleteSync(sync);
+                  animationFrameId = window.setTimeout(animate, 60);
+                }
+              } catch {
+                animationFrameId = window.setTimeout(animate, 60);
+              }
+            };
+            window.setTimeout(poll, 5);
           }
-        };
-        window.setTimeout(poll, 5);
+        } catch {
+          animationFrameId = window.setTimeout(animate, 60);
+        }
       } else {
         animationFrameId = requestAnimationFrame(animate);
       }
