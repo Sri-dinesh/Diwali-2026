@@ -1,0 +1,6 @@
+{
+  "name": "Diwali 2026: Immersive 3D Celebration",
+  "description": "An exceptional, fully immersive 3D Diwali 2026 celebration experience inspired by the epic return of Lord Rama to Ayodhya after defeating Ravana. Experience the Agni Astra fire bow release, the golden kingdom of Ayodhya, and millions of glowing diyas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

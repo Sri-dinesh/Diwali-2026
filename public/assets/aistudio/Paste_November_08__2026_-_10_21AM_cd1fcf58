@@ -1,0 +1,1235 @@
+# Diwali 2026: Immersive 3D Celebration Experience
+## Project Vision
+
+Create an exceptional, fully immersive one-page Diwali 2026 celebration experience using modern web technologies and a breathtaking ultra-realistic 3D environment.
+
+This should not feel like a conventional festival website, portfolio, landing page, or collection of cards.
+
+The goal is to create a majestic, cinematic, interactive 3D world inspired by the epic return of **Lord Rama to Ayodhya** after defeating Ravana — transformed into a polished digital Diwali 2026 celebration. The core centerpiece is the **majestic moment of Lord Rama releasing the divine fire arrow (Agni Astra) from his celestial bow to defeat Ravana**, followed by the triumphant return to Ayodhya where the entire kingdom is lit with millions of diyas — the origin of Diwali itself.
+
+The visitor should feel as if they have stepped inside the Ramayana — witnessing the battle, the victory, and the glorious homecoming.
+
+The experience should combine:
+- Ultra-realistic 3D environment design (high-fidelity, detailed mesh, smooth geometry)
+- Royal Indian epic aesthetics (Ayodhya kingdom, ancient architecture)
+- Ramayana-inspired storytelling
+- Majestic stylized characters (Rama, Ravana, Sita, Lakshmana, Hanuman)
+- Interactive divine objects (fire bow, celestial arrows, pushpak vimana)
+- Smooth cinematic camera movement
+- Scroll-driven epic storytelling
+- Festival decorations (diyas, rangoli, fireworks, torans)
+- Subtle particle effects (fire embers, sparks, golden dust, fireworks)
+- Beautiful dramatic lighting (fire-lit, golden, divine glow)
+- Ambient animation
+- Micro-interactions
+- Cinematic transitions
+- Responsive design
+
+The final result should feel **majestic, divine, triumphant, cinematic, artistic, and technologically breathtaking**.
+
+---
+
+## 1. Technology Stack
+
+Use:
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+- Three.js (core creative medium)
+- React Three Fiber
+- @react-three/drei
+- @react-three/postprocessing (for cinematic effects — bloom, god rays, depth of field)
+- GSAP
+- GSAP ScrollTrigger
+- Framer Motion / Motion
+- Lenis (smooth scrolling)
+
+**Three.js must be the core creative medium, not a decoration.**
+
+Use React Three Fiber for:
+- Ultra-realistic 3D scene management
+- Cinematic camera control
+- Characters (Rama, Ravana, Sita, Hanuman, citizens)
+- Ayodhya kingdom environment
+- Lanka battlefield environment
+- Divine weapons (fire bow, arrows)
+- Pushpak vimana
+- Decorative objects
+- Advanced lighting (volumetric, fire-based)
+- Particle systems (fire, embers, fireworks, divine glow)
+- Interactive elements
+- Environmental animation
+- Scroll-controlled camera movement
+
+Use GSAP for larger cinematic sequences and scroll choreography.
+Use Motion for smaller interface interactions and component-level animation.
+
+---
+
+## 2. Core Creative Direction
+
+The website should feel like:
+**A majestic cinematic 3D epic celebrating Diwali 2026 — the victory of light over darkness.**
+
+The visual direction should combine:
+- Ultra-realistic 3D animation with high-fidelity mesh detail
+- Ancient Indian royal architecture (Ayodhya kingdom)
+- Epic Ramayana atmosphere
+- Warm divine lighting (fire, gold, saffron)
+- Rama's heroic elements
+- Diwali decorations (diyas, rangoli, torans, fireworks)
+- Soft cinematic environments with dramatic depth
+- Playful yet majestic interactions
+- Devotional and triumphant atmosphere
+
+The design should feel handcrafted, epic, and artistic while looking modern and technically sophisticated.
+
+**Do not make it look like a generic religious website.**
+**Do not make it look like a generic Indian festival template.**
+**Do not make it look like a corporate website with Diwali images placed inside cards.**
+
+The entire interface should feel like one connected cinematic 3D world.
+
+---
+
+## 3. Strong 3D Environment Requirement (Ultra-Detailed)
+
+**This is one of the most important requirements.**
+
+Build a complete **ultra-realistic, high-fidelity 3D environment** using Three.js / React Three Fiber.
+
+**Model Quality Requirements:**
+- Ultra-detailed low-level mesh geometry
+- Smooth, organic surfaces (no generic boxy shapes)
+- High polygon count with optimized topology
+- Realistic proportions with subtle stylization
+- Detailed surface textures (wood grain, stone weathering, metal reflections, cloth weave)
+- Proper UV mapping and PBR materials
+- Micro-details on every object (carvings, engravings, ornaments)
+- Smooth subdivision surfaces
+- Realistic material properties (metallic, roughness, subsurface scattering)
+- Optimized for performance without sacrificing visual quality
+
+**Do not use Three.js only for one spinning object.**
+**Do not use generic primitive shapes.**
+**Every model must feel handcrafted with intricate detail.**
+
+The environment should include:
+
+### Ayodhya Kingdom
+- Majestic royal palace with detailed pillars, arches, domes
+- Intricate carved sandstone walls
+- Golden spires and shikhara
+- Ornate balconies and jharokhas
+- Royal gateways (torans) with detailed carvings
+- Stone pathways with rangoli patterns
+- Royal gardens with detailed trees and flowers
+- Palace interiors with carved ceilings
+- Detailed windows with jaali work
+- Royal thrones
+- Decorative banners and flags
+
+### Battlefield / Lanka-inspired Area
+- Dramatic rocky terrain
+- Ancient fortress ruins
+- Volcanic/fire-lit atmosphere
+- Dark ominous sky
+- Scattered weapons and armor
+- Dramatic cliffs
+- Fiery pits
+
+### Village / Citizens Area
+- Small detailed houses with clay and wood
+- Courtyards
+- Earthen pots (diyas being lit)
+- Market stalls with detailed goods
+- Hanging lanterns
+- Flower garlands
+- Detailed doorways with torans
+
+### Divine Elements
+- Pushpak vimana (detailed flying chariot with intricate carvings)
+- Celestial weapons
+- Divine glow effects
+- Lotus ponds
+- Sacred trees
+
+### Diwali Decorations
+- Thousands of detailed diyas (oil lamps with flickering flames)
+- Intricate rangoli patterns
+- Hanging marigold garlands
+- Decorative torans at doorways
+- Fireworks in the sky
+- Colorful lanterns
+- Flower arrangements
+- Sacred symbols
+
+### Nature
+- Detailed trees with realistic leaves
+- Flowing rivers (Sarayu-inspired)
+- Grass with individual blades
+- Flowers (marigold, lotus, jasmine)
+- Birds
+- Butterflies
+- Fireflies
+
+### Sky
+- Dramatic sunset transitioning to night
+- Detailed moon
+- Starfield
+- Clouds with volumetric lighting
+- Fireworks
+- Divine glow from above
+
+---
+
+## 4. Visual Style
+
+Use an **ultra-polished, cinematic 3D art direction** that balances realism with divine stylization.
+
+Think:
+- High-fidelity geometry with smooth organic surfaces
+- Realistic material properties (PBR)
+- Detailed textures with micro-surface detail
+- Cinematic depth of field
+- Volumetric lighting
+- God rays through temple pillars
+- Dramatic shadows
+- Warm divine glow
+- Soft ambient occlusion
+- Subsurface scattering on skin
+- Reflective metallic surfaces
+- Translucent fabrics
+- Particle-rich atmosphere
+
+Use a carefully controlled royal color system:
+- Royal gold
+- Deep saffron
+- Warm amber
+- Divine orange
+- Rich maroon
+- Royal red
+- Peacock blue (for Rama's attire)
+- Emerald green
+- Ivory white
+- Deep indigo (night sky)
+- Fiery crimson (Ravana/battle)
+- Soft cream
+- Terracotta
+- Bronze
+
+Avoid excessive neon colors.
+Avoid generic glassmorphism.
+Avoid flat, lifeless materials.
+The environment should feel **alive, divine, and royal**.
+
+---
+
+## 5. Lord Rama Character (Central Hero)
+
+Create a **majestic, ultra-detailed 3D character of Lord Rama** as the visual anchor of the entire experience.
+
+The character should have:
+- Royal, heroic proportions
+- Divine blue-toned skin with subsurface scattering
+- Detailed curly dark hair with ornate crown (mukut)
+- Peacock feather in crown
+- Majestic bow in hand (see Section 6)
+- Traditional royal yellow/saffron dhoti with detailed embroidery
+- Ornate jewelry (necklace, armbands, earrings, anklets)
+- Divine quiver of arrows on back
+- Calm, determined expression
+- Muscular but graceful physique
+- Detailed facial features with serene eyes
+
+**Keep the character respectful and culturally appropriate.**
+**Use a cinematic epic-film-inspired 3D style — NOT photorealistic human, NOT cartoonish.**
+
+Add subtle idle animation:
+- Gentle breathing
+- Cloth flowing in wind
+- Crown and jewelry subtle movement
+- Peacock feather swaying
+- Hair movement
+- Cape/dhoti physics
+- Subtle eye movement
+- Bow held with divine grace
+
+The character should feel **alive, divine, and heroic** even when not interacting.
+
+---
+
+## 6. The Majestic Fire Bow (CORE ELEMENT)
+
+**This is the most important object in the entire experience.**
+
+Create an **ultra-detailed, majestic divine bow (Kodanda / Sharanga)** as the centerpiece of the battle scene.
+
+The bow should have:
+- **Intricate golden carvings** along its entire length
+- **Divine engravings** of sacred symbols, mantras, and deities
+- **Ornate tips** with detailed sculptural elements
+- **Glowing divine energy** running through the bow
+- **Realistic wood/metal material** with visible grain and reflections
+- **Smooth, organic curves** — not a generic arc
+- **Detailed string** with visible fibers and tension
+- **Fire aura** surrounding the bow when drawn
+- **Divine particles** emanating from it
+- **Sacred gems** embedded at key points
+- **Royal proportions** — large, majestic, heroic
+
+**The bow must look like a divine weapon worthy of Lord Rama.**
+
+### Fire Arrow (Agni Astra)
+When Rama draws the bow:
+- A divine arrow materializes
+- The arrow is engulfed in **realistic fire**
+- Fire particles trail behind it
+- The arrow glows with intense divine light
+- Sacred mantras appear as glowing Sanskrit text around it
+- The environment reacts (wind, light, particles)
+
+### The Defeating Moment
+When Rama releases the arrow:
+- Slow-motion cinematic sequence
+- Camera follows the arrow
+- Arrow flies toward Ravana
+- Massive explosion of divine fire
+- Ravana's defeat (stylized, respectful)
+- Shockwave of light
+- Sky transforms
+- Victory moment
+
+**This moment must feel epic, divine, and unforgettable.**
+
+---
+
+## 7. Ravana Character (Antagonist)
+
+Create a detailed 3D character of Ravana:
+- Ten heads (stylized, not grotesque)
+- imposing stature
+- Dark royal attire
+- Golden armor with intricate details
+- Menacing but dignified
+- Detailed facial features
+- Dark aura
+- Weapons in hands
+
+**Keep the portrayal respectful — epic antagonist, not cartoonish villain.**
+
+---
+
+## 8. Opening Scene
+
+Do not begin with a conventional hero section.
+Begin inside the 3D world.
+
+**Possible opening composition:**
+- Dark sky over Ayodhya
+- Citizens waiting anxiously
+- Distant sounds of battle
+- A few diyas flickering
+- Moon partially hidden by clouds
+- Palace silhouettes
+- Sacred Sarayu river flowing
+- Wind blowing through trees
+- A sense of anticipation
+
+The camera slowly moves through the waiting kingdom.
+Then the battle scene begins to unfold.
+
+**Possible copy:**
+"A kingdom awaits its king..."
+Then:
+"The night darkness must fall..."
+Then:
+"So that light can triumph."
+Then:
+"Diwali 2026"
+
+Keep the copy simple, poetic, and powerful.
+
+---
+
+## 9. Cinematic Camera Experience
+
+The camera should be part of the storytelling.
+
+Use controlled camera movement:
+- Slow forward movement
+- Gentle orbit around characters
+- Cinematic pans
+- Camera following the fire arrow
+- Depth-based movement
+- Focus transitions
+- Slight perspective shifts
+- Scroll-controlled camera movement
+- Slow-motion during key moments
+- Dramatic angles during battle
+- Wide shots of Ayodhya
+- Close-ups of divine details
+
+**Example journey:**
+1. Visitor starts in the waiting kingdom
+2. Camera moves toward the battlefield
+3. Reveals Rama facing Ravana
+4. Camera orbits Rama as he draws the bow
+5. Close-up of the majestic bow
+6. Camera follows the fire arrow
+7. Explosion and defeat of Ravana
+8. Camera pulls back to reveal victory
+9. Transitions to the return journey
+10. Arrives at Ayodhya being lit with diyas
+11. Final celebration
+
+The camera should make the website feel like an **epic cinematic film**.
+
+---
+
+## 10. The Battle Scene (CORE EXPERIENCE)
+
+Build the **Rama vs Ravana battle** as the central dramatic moment.
+
+Include:
+- Dramatic battlefield environment
+- Stormy, fiery sky
+- Scattered weapons
+- Divine energy in the air
+- Rama standing heroic
+- Ravana in formidable stance
+- Other warriors (Lakshmana, Hanuman) in background
+- Dramatic lighting (fire, divine glow)
+- Wind and particle effects
+- Ground debris
+- Cinematic composition
+
+**This scene should feel like the climax of an epic film.**
+
+---
+
+## 11. The Fire Arrow Sequence
+
+Create a **cinematic slow-motion sequence** when Rama releases the fire arrow:
+
+- Camera focuses on Rama's face (determined)
+- Camera moves to the bow being drawn
+- Close-up of the divine arrow materializing
+- Fire ignites along the arrow
+- Camera pulls back as Rama releases
+- Arrow flies in slow motion
+- Camera follows the arrow
+- Divine mantras glow around it
+- Trail of fire and light
+- Impact on Ravana
+- Massive explosion
+- Shockwave of divine light
+- Sky clears
+- Ravana falls
+- Victory moment
+
+**This sequence must be the visual climax of the entire experience.**
+
+---
+
+## 12. Return to Ayodhya
+
+After the victory:
+- Camera follows Rama, Sita, Lakshmana, and Hanuman
+- Pushpak vimana flying through the sky
+- Transition from battlefield to kingdom
+- Citizens welcoming
+- Flowers being showered
+- Conch shells blowing
+- Drums celebrating
+
+---
+
+## 13. Diwali Celebration Environment
+
+Gradually transform the environment into a full Diwali celebration:
+
+Introduce:
+- **Millions of diyas lighting up** across Ayodhya
+- One by one, lamp by lamp
+- Rangoli appearing on pathways
+- Torans on doorways
+- Marigold garlands hanging
+- Fireworks bursting in the sky
+- Citizens celebrating
+- Sweets and offerings
+- Lakshmi puja elements
+- Golden light flooding the kingdom
+- Sacred chants in the air
+
+**The transformation from darkness to light is the heart of Diwali.**
+
+---
+
+## 14. Interactive Diya
+
+Create an **interactive 3D diya**:
+- Visitor can click to light it
+- Flame ignites with realistic fire animation
+- Warm glow spreads
+- Nearby diyas light up in chain reaction
+- Small particles appear
+- Gentle sound of ignition
+
+**Possible message:**
+"Light one diya..."
+Then:
+"...and watch the whole kingdom awaken."
+
+---
+
+## 15. Interactive Rangoli
+
+Create a **detailed 3D rangoli**:
+- Intricate floral patterns
+- Geometric designs
+- Peacock-inspired details
+- Small diyas at corners
+- When pointer moves over it:
+  - Tiny particles follow
+  - Details glow softly
+  - Colors become vibrant
+  - Flowers appear
+
+---
+
+## 16. Pushpak Vimana
+
+Create a **detailed 3D Pushpak vimana** (divine flying chariot):
+- Intricate golden carvings
+- Divine glow
+- Flying through sky
+- Leaving trail of light
+- Detailed structure with multiple levels
+- Ornate decorations
+- Sacred symbols
+
+**Camera can follow it during the return journey.**
+
+---
+
+## 17. Fireworks System
+
+Create a **realistic fireworks system**:
+- Multiple types (sparklers, bombs, flowers, chakras)
+- Realistic physics
+- Colorful explosions
+- Trails and afterglow
+- Sound synchronization
+- Triggered during celebration
+- Reflects on surfaces
+
+---
+
+## 18. Sarayu River Scene
+
+Create a peaceful **Sarayu river scene**:
+- Flowing water with realistic shaders
+- Moon reflection
+- Floating diyas
+- Lotus flowers
+- Ghats with detailed steps
+- Trees along the banks
+- Soft mist
+- Distant palace silhouettes
+
+**Possible copy:**
+"By the sacred river..."
+Then:
+"Light finds its way home."
+
+---
+
+## 19. Lakshmi Puja Scene
+
+Create a **detailed Lakshmi puja setup**:
+- Beautiful altar
+- Lakshmi idol/image
+- Diyas around
+- Flowers
+- Sweets (laddoos, etc.)
+- Incense smoke
+- Sacred items
+- Warm divine lighting
+
+---
+
+## 20. Scroll-Driven Storytelling
+
+Scrolling should move the visitor through the epic:
+
+Structure:
+**Scene → Battle → Victory → Return → Celebration → Blessing**
+
+Use GSAP ScrollTrigger to control:
+- Camera movement
+- Object positions
+- Scene transitions
+- Lighting changes
+- Character animations
+- Environment changes
+- Text reveals
+- Particle intensity
+- Background transitions
+- Fire arrow sequence timing
+
+The website should feel like **one continuous epic journey**.
+
+---
+
+## 21. 3D Scene Transitions
+
+Create transitions specific to Diwali:
+
+**Fire Arrow Transition**
+Camera follows the arrow across the screen; next scene emerges from its trail.
+
+**Diya Transition**
+A diya flame grows to fill the screen; next scene emerges from the light.
+
+**Pushpak Vimana Transition**
+The vimana flies across the screen; scene changes behind it.
+
+**Firework Transition**
+A firework explodes and fills the screen; next scene appears.
+
+**Divine Light Transition**
+A beam of divine light sweeps across; scene transforms.
+
+**Flower Transition**
+Flower petals cover the screen; next scene appears through them.
+
+**Do not use generic page wipes.**
+Every transition should feel connected to the Diwali world.
+
+---
+
+## 22. Festival Particle System
+
+Use particles carefully:
+- Fire embers
+- Golden sparks
+- Firework particles
+- Flower petals
+- Divine glow particles
+- Dust motes
+- Incense smoke
+- Floating diyas
+- Sacred light particles
+
+Particles should respond to:
+- Camera movement
+- Pointer movement
+- Scroll
+- Environmental wind
+- Battle events
+
+**Performance matters more than particle quantity.**
+
+---
+
+## 23. Lighting
+
+Lighting should evolve throughout the experience:
+
+**Opening**
+Dark, mysterious, moonlit.
+
+**Battle**
+Dramatic fire-lit, orange and crimson, divine glow from weapons.
+
+**Victory**
+Divine golden light breaking through.
+
+**Return**
+Warm sunset transitioning to night.
+
+**Diwali Celebration**
+Millions of diyas creating warm golden ambient light, fireworks illuminating the sky.
+
+**Final Scene**
+Balanced divine golden light with moonlight.
+
+Use:
+- Directional lights
+- Point lights (from diyas)
+- Volumetric lighting
+- God rays
+- Ambient lighting
+- Soft shadows
+- Environment lighting
+- Fire-based lighting
+- Divine glow effects
+
+**Keep the lighting performant.**
+**Avoid excessive dynamic lights.**
+
+---
+
+## 24. Audio
+
+Do not autoplay audio.
+If audio is included, add a clear sound toggle.
+
+**Possible audio direction:**
+- Conch shell (shankh) at key moments
+- War drums during battle
+- Divine chants during victory
+- Temple bells during celebration
+- Soft bansuri during peaceful moments
+- Fireworks sounds
+- Crowd cheering
+- Sacred mantras (Rama mantra)
+- Soft water sounds at Sarayu
+
+**Audio should enhance the epic atmosphere.**
+**The website should work beautifully with audio disabled.**
+
+---
+
+## 25. Micro-Interactions
+
+Add small interactions throughout:
+- Diyas flicker realistically
+- Bells move slightly
+- Flowers react to cursor
+- Fireworks burst on click
+- Rangoli reacts to pointer
+- Bow glows when hovered
+- Arrows materialize
+- Citizens wave
+- Cows and animals move subtly
+- Leaves respond to wind
+- Fireflies follow paths
+- Buttons gently scale
+- Text responds to hover
+- Small particles appear after interactions
+
+**Every interaction should have a reason.**
+
+---
+
+## 26. UI Design
+
+The interface should remain minimal.
+The 3D environment is the primary experience.
+
+Possible UI elements:
+- Small chapter indicator (Battle / Victory / Return / Celebration)
+- Sound toggle
+- Experience progress
+- Minimal navigation
+- Small interaction hints
+- Final celebration button
+
+**Avoid a large conventional navbar.**
+**Avoid excessive cards.**
+**The interface should feel integrated into the 3D world.**
+
+---
+
+## 27. Typography
+
+Use:
+- Modern elegant sans-serif for primary text
+- Royal Indian-inspired display typography for headings
+- Optional Sanskrit-inspired accent typography for sacred text
+- Handwritten accent typography for tiny labels
+
+**Possible heading style:**
+DIWALI 2026
+Then:
+"Victory of Light Over Darkness"
+Then:
+"Shubh Deepavali"
+
+**All text must remain readable on mobile.**
+
+---
+
+## 28. Responsive Design
+
+Mobile must be treated as a first-class experience.
+
+On mobile:
+- Reduce polygon complexity
+- Reduce particle count
+- Simplify distant objects
+- Reduce dynamic lighting
+- Reduce expensive post-processing
+- Simplify camera paths
+- Disable complex pointer interactions
+- Replace hover with tap
+- Preserve the core storytelling
+
+**The mobile version should still feel like an epic 3D Diwali experience.**
+
+---
+
+## 29. Performance
+
+The website is 3D and animation-heavy, so performance is critical.
+
+Implement:
+- GLTF/GLB model optimization (with ultra-detail preserved)
+- Texture compression (KTX2, basis)
+- Lazy loading
+- Progressive scene loading
+- Instanced meshes (for diyas, flowers, etc.)
+- Efficient particle systems
+- GPU-friendly transforms
+- Efficient React rendering
+- Proper Three.js cleanup
+- Proper GSAP cleanup
+- Responsive rendering quality
+- Device-aware quality settings
+- Reduced shadow complexity on weaker devices
+- Avoid unnecessary post-processing
+- Avoid excessive transparent materials
+- Avoid excessive dynamic lights
+- Provide a lightweight fallback for lower-end devices
+
+**Ultra-detailed models must be optimized without losing visual quality.**
+
+---
+
+## 30. Accessibility
+
+Support:
+- Keyboard navigation
+- Visible focus states
+- Readable contrast
+- Accessible buttons
+- Screen-reader-friendly controls
+- Reduced-motion preferences
+
+When reduced motion is enabled:
+- Reduce camera movement
+- Reduce particles
+- Disable unnecessary parallax
+- Simplify object animation
+- Preserve the overall visual story
+
+---
+
+## 31. Loading Experience
+
+Do not show a generic spinner.
+
+Create a **cinematic Diwali loading scene**:
+- Dark sky appears
+- A single diya is unlit
+- A flame ignites
+- The diya glows warmly
+- More diyas appear one by one
+- A peacock feather materializes
+- A bow draws itself
+- An arrow ignites with fire
+- The kingdom of Ayodhya fades in
+- The 3D environment loads
+- Camera moves into the scene
+
+**Possible text:**
+"Preparing the kingdom's welcome..."
+Then:
+"Diwali 2026"
+Then transition smoothly into the main experience.
+
+---
+
+## 32. Final Celebration
+
+The final section should bring together the visual language from the entire experience.
+
+Show:
+- Rama, Sita, Lakshmana, Hanuman
+- Fully lit Ayodhya
+- Millions of diyas
+- Peacock feathers
+- Divine bow
+- Pushpak vimana
+- Fireworks
+- Citizens celebrating
+- Rangoli
+- Moon and stars
+- Falling flower petals
+- Golden divine particles
+
+Gradually increase the warmth of the lighting.
+The camera slowly pulls back.
+The entire kingdom becomes visible.
+
+Then reveal:
+**"Happy Diwali 2026"**
+Follow with:
+**"Shubh Deepavali"**
+Then:
+**"May the divine light of Rama guide your path."**
+
+**Keep the final scene majestic and peaceful.**
+
+---
+
+## 33. Final Interactive Surprise
+
+Add one small optional interaction near the end:
+
+A small button or diya labeled:
+**"Light your diya..."**
+
+When clicked:
+- The camera gently moves forward
+- A personal diya lights up
+- The environment becomes slightly warmer
+- Rama smiles subtly
+- Flowers appear
+- Diyas brighten
+- Stars become more visible
+- Fireworks burst
+- A final message appears
+
+**Possible message:**
+"May your life be filled with the divine light of wisdom, the warmth of love, the spark of joy, and the triumph of goodness."
+Then:
+**"Jai Shri Rama"**
+**"Shubh Deepavali 2026"**
+
+---
+
+## 34. Animation Architecture
+
+Use **GSAP** for:
+- ScrollTrigger
+- Camera choreography
+- Scene transitions
+- Object timelines
+- Parallax
+- Environment transformations
+- Complex reveals
+- Pinning
+- Large cinematic sequences
+- Fire arrow sequence timing
+
+Use **Motion** for:
+- Buttons
+- Small UI elements
+- Hover states
+- Tap interactions
+- Component transitions
+- Spring animations
+
+Use **Three.js / React Three Fiber** for:
+- Ultra-realistic 3D environment
+- Camera
+- Characters
+- Divine weapons
+- Lighting
+- Particles
+- Environmental animation
+- 3D interactions
+
+**Avoid mixing animation libraries for the same animation.**
+
+Create reusable utilities:
+- `SceneReveal`
+- `CameraSequence`
+- `ScrollScene`
+- `FloatingObject`
+- `FloatingParticle`
+- `InteractiveObject`
+- `CharacterIdle`
+- `ParallaxElement`
+- `FestivalLight`
+- `FireworkSystem`
+- `DiyaSystem`
+- `FireArrowSequence`
+- `SmoothCamera`
+- `SectionTransition`
+- `DivineGlow`
+
+---
+
+## 35. Suggested Project Structure
+
+```
+app/
+   page.tsx
+   layout.tsx
+   globals.css
+ components/
+   experience/
+     DiwaliExperience/
+     LoadingScene/
+     BattleScene/
+     VictoryScene/
+     ReturnScene/
+     AyodhyaScene/
+     CelebrationScene/
+     FinalScene/
+   three/
+     Scene/
+     Camera/
+     Lighting/
+     Environment/
+     Rama/
+     Ravana/
+     Sita/
+     Lakshmana/
+     Hanuman/
+     FireBow/
+     FireArrow/
+     PushpakVimana/
+     Ayodhya/
+     Battlefield/
+     Sarayu/
+     Diyas/
+     Rangoli/
+     Fireworks/
+     Particles/
+     Citizens/
+   animations/
+     CameraSequence/
+     SceneTransition/
+     ScrollScene/
+     Reveal/
+     Parallax/
+     FloatingElement/
+     FireArrowSequence/
+   ui/
+     AudioToggle/
+     ChapterIndicator/
+     InteractionHint/
+     FinalMessage/
+ lib/
+   animations/
+   three/
+   constants/
+   utils/
+ public/
+   models/
+   textures/
+   environments/
+   illustrations/
+   audio/
+```
+
+**Do not place the entire experience inside one massive component.**
+**Keep the 3D scene modular.**
+**Keep animation logic reusable.**
+**Keep environment objects independently configurable.**
+**Use TypeScript throughout.**
+
+---
+
+## 36. Scene Quality
+
+Every scene should contain foreground, middle-ground, and background elements:
+
+**Foreground**
+- Flowers, grass, diyas, pots, leaves, particles
+
+**Middle-ground**
+- Rama, citizens, houses, trees, decorations
+
+**Background**
+- Moon, sky, palace, distant kingdom, clouds, stars
+
+**This creates depth without requiring excessive geometry.**
+
+---
+
+## 37. Visual Continuity
+
+Create recurring visual motifs:
+- Divine fire bow
+- Fire arrow
+- Diyas
+- Peacock feather
+- Moon
+- Fireworks
+- Flowers
+- Pushpak vimana
+- Royal gold
+- Warm divine light
+- Rama's blue form
+
+**These elements should connect the scenes.**
+**The visitor should feel like they are moving through one epic world.**
+
+---
+
+## 38. Things to Avoid
+
+Do not include:
+- Krishna / Janmashtami content
+- Rakhi / Raksha Bandhan content
+- Sibling themes
+- Generic festival templates
+- Generic portfolio layouts
+- Generic SaaS layouts
+- Corporate UI
+- Stock-photo galleries
+- Generic AI-generated cards
+- Excessive glassmorphism
+- Excessive gradients
+- Random 3D objects
+- Unnecessary neon colors
+- Excessive particles
+- Excessive animations
+- Autoplay music
+- Generic loading spinners
+- Generic fade-up animations for every section
+- Generic primitive shapes (boxes, spheres without detail)
+- Low-poly cartoonish models
+
+**Every visual element must belong to the Diwali 2026 Ramayana world.**
+
+---
+
+## 39. Content Direction
+
+The content should remain focused entirely on Diwali 2026 and the Ramayana story.
+
+Use themes such as:
+- Lord Rama's victory over Ravana
+- The divine fire bow and arrow
+- Return to Ayodhya
+- Victory of light over darkness
+- Good over evil
+- Ayodhya kingdom
+- Sarayu river
+- Pushpak vimana
+- Sita, Lakshmana, Hanuman
+- Diyas and their significance
+- Rangoli
+- Fireworks
+- Lakshmi puja
+- Joy, triumph, devotion, celebration, blessings
+
+**Keep the copy short, poetic, and powerful.**
+**Let the 3D environment tell most of the story.**
+**Avoid long paragraphs.**
+
+---
+
+## 40. Overall Experience Flow
+
+The ideal experience should roughly follow:
+
+**Scene 01 — The Waiting Kingdom**
+Dark Ayodhya, citizens waiting, anticipation.
+↓
+**Scene 02 — The Battlefield**
+Rama faces Ravana, dramatic atmosphere.
+↓
+**Scene 03 — The Divine Bow**
+Close-up of the majestic fire bow.
+↓
+**Scene 04 — The Fire Arrow**
+Rama draws, arrow ignites, slow-motion release.
+↓
+**Scene 05 — Victory**
+Arrow strikes, Ravana falls, divine light triumphs.
+↓
+**Scene 06 — The Return**
+Pushpak vimana flies back, citizens welcome.
+↓
+**Scene 07 — Lighting the Kingdom**
+Diyas light up across Ayodhya, one by one.
+↓
+**Scene 08 — The Celebration**
+Full Diwali environment, fireworks, joy.
+↓
+**Scene 09 — Diwali 2026**
+Central celebration moment.
+↓
+**Scene 10 — Final Blessing**
+Peaceful majestic final scene with Rama, diyas, moon.
+
+---
+
+## 41. Final Design Test
+
+Before considering the website complete, evaluate it against these questions:
+
+- Does it immediately feel like Diwali 2026?
+- Does the experience clearly belong to 2026?
+- Is Three.js a meaningful, core part of the experience?
+- Does the visitor feel immersed inside an epic 3D world?
+- Does the environment feel cohesive and royal?
+- Does Rama remain the central visual identity?
+- Is the fire bow truly majestic and detailed?
+- Are the 3D models ultra-detailed and stylistically consistent?
+- Does the battle scene feel epic and cinematic?
+- Does the fire arrow sequence feel unforgettable?
+- Does the Diwali celebration feel earned and triumphant?
+- Are the camera movements cinematic?
+- Are the transitions connected to Diwali themes?
+- Are the interactions subtle and enjoyable?
+- Does the experience feel majestic without being gaudy?
+- Does the celebration feel festive without becoming chaotic?
+- Does the Sarayu scene provide a peaceful contrast?
+- Does the final celebration feel divine?
+- Does the website perform well on mobile?
+- Does reduced motion work properly?
+- Does the website still feel beautiful without audio?
+- Could this website easily be converted into a different festival?
+
+**If the answer to the final question is yes, redesign the relevant visual elements.**
+**The identity should be unmistakably Diwali 2026 — rooted in the Ramayana.**
+
+---
+
+## MOST IMPORTANT INSTRUCTION
+
+**Do not build a normal website with a 3D section.**
+**Build a 3D Diwali 2026 epic experience that happens to run on the web.**
+
+Three.js should be treated as a **core creative medium**.
+
+Think in terms of:
+**environment → camera → characters → divine weapons → battle → victory → celebration → lighting → sound → storytelling → triumph**
+
+rather than:
+**navbar → hero → cards → sections → footer**
+
+The visitor should feel like they have **entered the Ramayana** — witnessing Rama's victory and the birth of Diwali itself.
+
+**The fire bow and the fire arrow sequence must be the visual climax of the entire experience.**
+
+Make the environment:
+- Majestic
+- Ultra-detailed
+- Cinematic
+- Divine
+- Royal
+- Clean
+- Neat
+- Warm
+- Triumphant
+- Festive
+- Interactive
+- Animated
+- Polished
+- Responsive
+- Performance-conscious
+
+**Use ultra-realistic 3D models with detailed low-level mesh, smooth geometry, and optimized performance.**
+
+**No generic shapes. No primitive boxes. Every model must feel handcrafted and divine.**
+
+Use 3D where it creates genuine immersion.
+Use animation where it supports the epic storytelling.
+Use interaction where it rewards exploration.
+Use sound only where it improves the atmosphere.
+Keep the interface minimal so the environment remains the focus.
+
+The final experience should feel like a **breathtaking interactive Diwali 2026 celebration**, combining Ramayana-inspired storytelling, majestic 3D characters, the divine fire bow moment, a glorious Ayodhya kingdom, festive details, smooth cinematic movement, and carefully designed interactions into one cohesive unforgettable digital experience.
+
+**It should feel unforgettable from the first second until the final "Shubh Deepavali 2026" and "Jai Shri Rama".**
